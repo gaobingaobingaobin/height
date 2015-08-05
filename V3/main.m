@@ -18,42 +18,48 @@ end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%initialize rbg picture%%%%%%%%%%%%%%%%%%%%%%%%%
-pc1_1 = imread('f1.jpg');
-pc2_1 = imread('f2.jpg');
-pc1_2 = imread('f3.jpg');
-
-%pc1_1=rgb2gray(pc1_1);
-%pc2_1=rgb2gray(pc2_1);
-%pc1_2=rgb2gray(pc1_2);
-%imshow(pc1_1)
+pc1_1 = imread('f1_1.jpg');
+pc2_1 = imread('f2_1.jpg');
+pc1_2 = imread('f1_2.jpg');
 
 seg_num = 40;
 %result of brutal force
 load f12_c
 load f12_r
-[m n]=size (gt_c);
-count=0;
+[m,n]=size (gt_c);
+count=0;sum_c=0;sum_r=0;
+t_c = abs(gt_c);
+t_r = abs(gt_r);
 for i=1:m
     for j=1:n
-        if (gt_c(i,j)~=0||gt_c(i,j)~=0)
+        if t_c(i,j)>2||t_r(i,j)>2
             count = count+1;
+            sum_c = sum_c+gt_c(i,j);
+            sum_r = sum_r+gt_r(i,j);
         end
     end
 end
-f_c=round(sum(sum(gt_c))/count);
-f_r=round(sum(sum(gt_r))/count);
-d_pixel = sqrt(f_c^2+f_r^2);
+f_c=round(sum_c/count);
+f_r=round(sum_r/count);
+pic = MixPic(pc1_1,pc1_2,f_c,f_r);
+%太阳的距离差d_pixel=
 rou = norm(camera1-camera2)/d_pixel;
-ps=imread('sun.jpg'); %读取图像
-subplot(1,3,1)
-imshow(ps);
-title('原图像');
-ps=rgb2gray(ps);
-[m,n]=size(ps); %用Sobel微分算子进行边缘检测
-pa = edge(ps,'sobel');
-subplot(1,3,2);
-imshow(pa);
-title('Sobel边缘检测得到的图像');
-pp = edge(ps,'canny');
-subplot(1,3,3);
-imshow(pp);
+
+
+
+%%
+if 0
+    ps=imread('sun.jpg'); %读取图像
+    subplot(1,3,1)
+    imshow(ps);
+    title('原图像');
+    ps=rgb2gray(ps);
+    [m,n]=size(ps); %用Sobel微分算子进行边缘检测
+    pa = edge(ps,'sobel');
+    subplot(1,3,2);
+    imshow(pa);
+    title('Sobel边缘检测得到的图像');
+    pp = edge(ps,'canny');
+    subplot(1,3,3);
+    imshow(pp);
+    end
