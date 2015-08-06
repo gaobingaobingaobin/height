@@ -42,6 +42,7 @@ end
 f_c=round(sum_c/count);
 f_r=round(sum_r/count);
 pic = MixPic(pc1_1,pc1_2,f_c,f_r);
+imshow(pic);
 %Ì«ÑôµÄ¾àÀë²îd_pixel=
 rou = norm(camera1-camera2)/d_pixel;
 

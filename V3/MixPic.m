@@ -4,8 +4,7 @@ function[pic] = MixPic(pc1_1,pc2_1,f_c,f_r)
 [row,col,color] = size(pc1_1);
 a_c = abs(f_c);
 a_r = abs(f_r);
-%f_r=0;f_c=7;
-%%%补列
+%%补列
 if a_c 
     for i=1:row
         for j=1:a_c
@@ -19,6 +18,7 @@ if a_c
     end
     if f_c>0
         pic = [m,pc1_1];
+    end
 end
 %%补行
 if a_r
@@ -34,6 +34,7 @@ if a_r
     end
     if f_r>0
         pic = [n;pc1_1];
+    end
 end
 %%补小块下角
 if a_r&&a_c
@@ -47,7 +48,39 @@ if a_r&&a_c
     if f_c<0&&f_r<0
         pic = [pc1_1,m;n,p];
     end
+    if f_c>0&&f_r>0
+        pic = [m,pc1_1;p,n];
+    end
+    if f_c<0&&f_r>0
+        pic = [p,n;m,pc1_1];
+    end
     if f_c>0&&f_r<0
+        pic = [m,pc1_1;p,n];
+    end
         
 end
-    
+if f_c<=0&&f_r<=0
+  for i=(a_r+1):row
+      for j=(a_c+1):col
+          for k=1:color
+              if pc1_1(i,j,k)<pc2_1(i-a_r,j-a_c,k)
+                  pic(i,j,k) = pc2_1(i-a_r,j-a_c,k);
+              end
+          end
+      end
+  end
+  for i=(row+1):(row+a_r)
+      for j=(a_c+1):(a_c+col)
+          for k=1:color
+              pic(i,j,k) = pc2_1(i-a_r,j-a_c,k);
+          end
+      end
+  end
+  for i=(a_r+1):row
+      for j=(col+1):(a_c+col)
+          for k=1:color
+              pic(i,j,k) = pc2_1(i-a_r,j-a_c,k);
+          end
+      end
+  end
+end
