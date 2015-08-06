@@ -64,8 +64,8 @@ if f_c<=0&&f_r<=0
   for i=(a_r+1):row
       for j=(a_c+1):col
           for k=1:color
-              if pc1_1(i,j,k)<pc2_1(i-a_r,j-a_c,k)
-                  pic(i,j,k) = pc2_1(i-a_r,j-a_c,k);
+              if pc1_1(i,j,k)<pc2_1(i+f_r,j+f_c,k)
+                  pic(i,j,k) = pc2_1(i+f_r,j+f_c,k);
               end
           end
       end
@@ -73,14 +73,14 @@ if f_c<=0&&f_r<=0
   for i=(row+1):(row+a_r)
       for j=(a_c+1):(a_c+col)
           for k=1:color
-              pic(i,j,k) = pc2_1(i-a_r,j-a_c,k);
+              pic(i,j,k) = pc2_1(i+f_r,j+f_c,k);
           end
       end
   end
   for i=(a_r+1):row
       for j=(col+1):(a_c+col)
           for k=1:color
-              pic(i,j,k) = pc2_1(i-a_r,j-a_c,k);
+              pic(i,j,k) = pc2_1(i+f_r,j+f_c,k);
           end
       end
   end
@@ -161,7 +161,7 @@ if f_c>=0&&f_r<=0
   for i=(a_r+1):row
       for j=1:a_c
           for k=1:color
-              pic(i,j,k) = pc2_1(i-a_r,j,k);
+              pic(i,j,k) = pc2_1(i,j,k);
           end
       end
   end
