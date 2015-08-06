@@ -53,6 +53,6 @@ f_r=round(cloud2(2)-cloud1(2));
 pic = MixPic(pc1_1,pc2_1,f_c,f_r);
 %pic = MixPic(pc2_1,pc1_1,9,f_r);debug
 imshow(pic);
-sun2 = [sun2(1)-f_c,sun2(2)-f_r];
-d_pixel=norm(sun1-sun2);%太阳中心的像素差
-rou = norm(camera1-camera2)/d_pixel;%mm/pixel
+sun2 = [sun2(1)-f_c,sun(2)(2)-f_r];
+d_pixel=norm(sun1-sun2)%太阳中心的x距离差
+rou = norm(camera1-camera2)/d_pixel;
