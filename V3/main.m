@@ -54,5 +54,10 @@ pic = MixPic(pc1_1,pc2_1,f_c,f_r);
 %pic = MixPic(pc2_1,pc1_1,9,f_r);debug
 imshow(pic);
 sun2 = [sun2(1)-f_c,sun2(2)-f_r];
-d_pixel=norm(sun1-sun2);%太阳中心的像素差
-rou = norm(camera1-camera2)/d_pixel;%mm/pixel
+c1c2_p = sun2-sun1;
+c1c2 = camera2-camera1;
+%d_pixel=norm(sun1-sun2);%太阳中心的像素差
+%rou = norm(camera1-camera2)/d_pixel;%mm/pixel
+syms rou theta 
+[rou,theta]=solve(c1c2_p(1)*rou*cos(theta)-c1c2_p(2)*rou*sin(theta)-c1c2(1)...
+    ,c1c2_p(1)*rou*cos(theta)+c1c2_p(2)*rou*sin(theta)-c1c2(2),'rou','theta')
