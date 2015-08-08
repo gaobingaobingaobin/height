@@ -4,8 +4,9 @@ close all;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%initialize solar farm%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%80inches*40inches--solar panel
 camera1 = [0,0,0];%unit:mm
-camera2 = [0,50000,0];
+camera2 = [50000,0,0];
 k=0;m=0;
 for i=1:100
     m=m+1;
@@ -51,13 +52,18 @@ end
 f_c=round(cloud2(1)-cloud1(1));
 f_r=round(cloud2(2)-cloud1(2));
 pic = MixPic(pc1_1,pc2_1,f_c,f_r);
-%pic = MixPic(pc2_1,pc1_1,9,f_r);debug
 imshow(pic);
+%以下基于f_c<0,f_r<0
 sun2 = [sun2(1)-f_c,sun2(2)-f_r];
 c1c2_p = sun2-sun1;
 c1c2 = camera2-camera1;
-%d_pixel=norm(sun1-sun2);%太阳中心的像素差
-%rou = norm(camera1-camera2)/d_pixel;%mm/pixel
-syms rou theta 
-[rou,theta]=solve(c1c2_p(1)*rou*cos(theta)-c1c2_p(2)*rou*sin(theta)-c1c2(1)...
-    ,c1c2_p(1)*rou*cos(theta)+c1c2_p(2)*rou*sin(theta)-c1c2(2),'rou','theta')
+d_pixel=norm(sun1-sun2);%太阳中心的像素差
+rou = norm(camera1-camera2)/d_pixel;%mm/pixel
+%syms rou theta %不会解方程！
+%[rou,theta]=solve(c1c2_p(1)*rou*cos(theta)-c1c2_p(2)*rou*sin(theta)-c1c2(1)...
+%   ,c1c2_p(1)*rou*cos(theta)+c1c2_p(2)*rou*sin(theta)-c1c2(2),'rou','theta')
+
+%%motion detect
+load f1_1vs2_r
+load f1_1vs2_c
+
